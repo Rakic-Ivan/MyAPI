@@ -47,6 +47,7 @@ async function authenticate(userAuthentification,res) {
 async function getAll(res) {
   const user = await User.find();
   const data = [];
+  console.log(user)
   user.forEach(u => {
     data.push({"pseudo" : u.pseudo});
   });

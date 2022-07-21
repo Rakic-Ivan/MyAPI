@@ -4,12 +4,12 @@ const userService = require("./user.service");
 
 // routes
 router.post("/create", register);
-router.get("/", getAll);
+router.get("", getAll);
 router.get("/current", getCurrent);
 router.get("/:_id", getById);
 router.put("/:_id", update);  
 router.delete("/:_id", _delete);
-router.post("/login", authenticate);
+router.post("/auth", authenticate);
 module.exports = router;
 
 function authenticate(req, res, next) {
@@ -52,7 +52,12 @@ function getById(req, res, next) {
   console.log("defdefde")
   userService
     .getById(req.params._id)
-    .then((user) => (user ? res.json(user) : res.sendStatus(404)))
+    .then((user) => (user ? res.json({
+      message: "ok",
+      data: user,
+    }) : res.sendStatus(404).json( {
+      message: "Error: User not found for the given ID!"
+    })))
     .catch((err) => next(err));
 }
 
