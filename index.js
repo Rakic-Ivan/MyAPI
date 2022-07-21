@@ -17,7 +17,7 @@ app.use(jwt());
 
 // api routes
 app.use("/users", require("./models/users/user.controller"));
-app.use("/comments", require("./models/comments/comment.controller"));
+app.use("/video", require("./models/videos/video.controller"));
 
 
 // global error handler

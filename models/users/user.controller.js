@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const userService = require("./user.service");
-
+const videoService = require("../videos/video.service")
 // routes
 router.post("/create", register);
+router.post("/:_id/video", createVideo);
 router.get("/", getAll);
 router.get("/current", getCurrent);
 router.get("/:_id", getById);
@@ -64,5 +65,11 @@ function _delete(req, res, next) {
   userService
     .delete(req.params._id,res)
     .then(() => res.json({}))
+    .catch((err) => next(err));
+}
+
+function createVideo(req, res, next){
+  videoService
+    .create(req.params, res)
     .catch((err) => next(err));
 }
