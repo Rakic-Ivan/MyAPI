@@ -58,7 +58,7 @@ async function getAll(res) {
 
 async function getById(id) {
   user = await User.findById(id);
-  console.log(user);
+  // console.log(user);
   return user;
 }
 
