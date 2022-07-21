@@ -30,6 +30,8 @@ async function authenticate(userAuthentification,res) {
         expiresIn: "7d",
       });
 
+      console.log(token)
+
       return {
         message: "ok",
         data: token,
