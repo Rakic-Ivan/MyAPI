@@ -26,11 +26,9 @@ async function authenticate(userAuthentification,res) {
     }
     if (comparePassword) {
       
-      const token = jwt.sign({ sub: user._id }, config.secret, {
+      const token = jwt.sign({ sub: user }, config.secret, {
         expiresIn: "7d",
       });
-
-      console.log(token)
 
       return {
         message: "ok",
@@ -58,7 +56,7 @@ async function getAll(res) {
   });
 }
 
-async function getById(param,res) {
+async function getById(param) {
   return await User.findById(param.id);
   /*if(user){
     return res.status(200).json( {
@@ -71,10 +69,6 @@ async function getById(param,res) {
     });
   }*/
 }
-/*
-async function getCurrentId(id) {
-  return await User.findById(id);
-}*/
 
 async function create(userParam, req, res) {
   try {
