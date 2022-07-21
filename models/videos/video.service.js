@@ -4,11 +4,11 @@ const bcrypt = require("bcryptjs");
 const db = require("_helpers/db");
 const Video = db.Video;
 const User = db.User;
-const emailCheck = require('email-check');
+/*const emailCheck = require('email-check');
 const multer = require('multer');
 const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
-const methodOverride = require('method-override');
+const methodOverride = require('method-override');*/
 
 
 module.exports = {
