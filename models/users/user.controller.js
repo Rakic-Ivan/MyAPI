@@ -4,7 +4,7 @@ const userService = require("./user.service");
 
 // routes
 router.post("/create", register);
-router.get("", getAll);
+router.get("/", getAll);
 router.get("/current", getCurrent);
 router.get("/:_id", getById);
 router.put("/:_id", update);  
@@ -49,7 +49,6 @@ function getCurrent(req, res, next) {
 }
 
 function getById(req, res, next) {
-  console.log("defdefde")
   userService
     .getById(req.params._id)
     .then((user) => (user ? res.json({
@@ -63,7 +62,7 @@ function getById(req, res, next) {
 
 function _delete(req, res, next) {
   userService
-    .delete(req.params._id)
+    .delete(req.params._id,res)
     .then(() => res.json({}))
     .catch((err) => next(err));
 }

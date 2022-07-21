@@ -47,7 +47,6 @@ async function authenticate(userAuthentification,res) {
 async function getAll(res) {
   const user = await User.find();
   const data = [];
-  console.log(user)
   user.forEach(u => {
     data.push({"pseudo" : u.pseudo});
   });
@@ -57,18 +56,10 @@ async function getAll(res) {
   });
 }
 
-async function getById(param) {
-  return await User.findById(param.id);
-  /*if(user){
-    return res.status(200).json( {
-      message: "ok",
-      data: user,
-    });
-  }else{
-    return res.status(404).json( {
-      message: "Error: User not found for the given ID!"
-    });
-  }*/
+async function getById(id) {
+  user = await User.findById(id);
+  console.log(user);
+  return user;
 }
 
 async function create(userParam, req, res) {
@@ -137,9 +128,9 @@ async function update(id, userParam, res) {
     }
 }
 
-async function _delete(id) {
+async function _delete(id, res) {
     await User.findByIdAndRemove(id);
-    res.status(204);
+    res.status(200);
 }
 
 /** tools */

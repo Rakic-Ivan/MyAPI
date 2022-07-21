@@ -5,7 +5,12 @@ const schema = new Schema({
   username: { type: String, unique: true, required: true },
   pseudo: { type: String, unique: true, required: true },
   email :{ type: String, unique: true, required:true},
-  password : {type: String, required: true}
+  password : {type: String, required: true},
+  created_at: {
+    type: Date,
+    required: true,
+    default: Date.now,
+  }
 });
 
 schema.set("toJSON", {
