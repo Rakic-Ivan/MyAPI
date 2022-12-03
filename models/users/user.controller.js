@@ -8,19 +8,7 @@ router.get("/current", getCurrent);
 router.get("/:_id", getById);
 router.put("/:_id", update);  
 router.delete("/:_id", _delete);
-router.post("/auth", authenticate);
 module.exports = router;
-
-function authenticate(req, res, next) {
-  userService
-    .authenticate(req.body, res)
-    .then((user) =>
-    user
-      ? res.json(user)
-      : res.status(400).json({ message: "Username or password is incorrect" })
-  )
-    .catch((err) => next(err));
-}
 
 function register(req, res, next) {
   userService
