@@ -2,15 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-  username: { type: String, unique: true, required: true },
-  pseudo: { type: String, unique: true, required: true },
-  email :{ type: String, unique: true, required:true},
-  password : {type: String, required: true},
-  created_at: {
-    type: Date,
-    required: true,
-    default: Date.now,
-  }
+  prenom: { type: String, unique: true, required: true },
+  nom: { type: String, unique: true, required: true },
+  listIdFavShoes : [{type: Schema.Types.ObjectId, ref: 'shoes' , default:[]}]
 });
 
 schema.set("toJSON", {
@@ -21,4 +15,4 @@ schema.set("toJSON", {
   },
 });
 
-module.exports = mongoose.model("User", schema);
+module.exports = mongoose.model("Users", schema);

@@ -3,8 +3,10 @@ const ObjectID = require('mongodb').ObjectID
 const Schema = mongoose.Schema;
 
 const commentSchema = new Schema({
-  body: { type: String, required: true },
-  user: { type: Schema.Types.ObjectId, ref: 'users' },
+  name: { type: String, required: true },
+  description: { type: String, required: true },
+  size: { type: String, required: true },
+  shopId: { type: Schema.Types.ObjectId, ref: 'shops' },
 });
 
 commentSchema.set("toJSON", {
@@ -15,4 +17,4 @@ commentSchema.set("toJSON", {
   },
 });
 
-module.exports = mongoose.model("Comments", commentSchema);
+module.exports = mongoose.model("Shoes", commentSchema);
