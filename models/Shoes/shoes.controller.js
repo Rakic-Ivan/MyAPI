@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const commentService = require("./comment.service");
+const commentService = require("./shoes.service");
 
 // routes
 router.post("/:_id/comment", create);
