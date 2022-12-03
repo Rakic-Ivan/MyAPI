@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userService = require("./user.service");
 // routes
-router.post("/create", register);
+router.post("/create", create);
 router.get("/", getAll);
 router.get("/current", getCurrent);
 router.get("/:_id", getById);
@@ -10,7 +10,7 @@ router.put("/:_id", update);
 router.delete("/:_id", _delete);
 module.exports = router;
 
-function register(req, res, next) {
+function create(req, res, next) {
   userService
     .create(req.body,req, res)
     .catch((err) => next(err));
