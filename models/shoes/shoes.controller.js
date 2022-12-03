@@ -37,7 +37,7 @@ function getCurrent(req, res, next) {
 
 function getById(req, res, next) {
   shoesService
-    .getById(req.params._id)
+    .getById(req.params._id, req, res,)
     .then((user) => (user ? res.json({
       message: "ok",
       data: user,

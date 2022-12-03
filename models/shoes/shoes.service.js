@@ -1,5 +1,7 @@
 const db = require("_helpers/db");
 const Shoes = db.Shoes;
+const Shops = db.Shops;
+
 
 module.exports = {
   getAll,
@@ -17,9 +19,16 @@ async function getAll(res) {
   });
 }
 
-async function getById(id) {
+async function getById(id , req, res) {
   shoes = await Shoes.findById(id);
-  return shoes;
+
+  shop = await Shops.findById(shoes.shopId);
+
+  data = {"shoes": shoes, "shop": shop}
+  return res.status(200).json( {
+    message: "ok",
+    data,
+  });
 }
 
 async function create(ShoesParam, req, res) {
