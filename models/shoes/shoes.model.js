@@ -6,7 +6,7 @@ const commentSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
   size: { type: String, required: true },
-  shopId: { type: Schema.Types.ObjectId, ref: 'shops' },
+  shopId: { type: Schema.Types.ObjectId, ref: 'shops', required: true },
 });
 
 commentSchema.set("toJSON", {

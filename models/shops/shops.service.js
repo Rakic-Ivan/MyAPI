@@ -1,41 +1,64 @@
-const config = require("config.json");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
 const db = require("_helpers/db");
-const Video = db.Video;
-const User = db.User;
-/*const emailCheck = require('email-check');
-const multer = require('multer');
-const GridFsStorage = require('multer-gridfs-storage');
-const Grid = require('gridfs-stream');
-const methodOverride = require('method-override');*/
-
+const Shops = db.Shops;
 
 module.exports = {
+  getAll,
+  getById,
   create,
+  update,
+  delete: _delete,
 };
 
+async function getAll(res) {
+  const shops = await Shops.find();
+  return res.status(200).json( {
+    message: "ok",
+    data: shops,
+  });
+}
 
-async function create(commentParam, req, res) {
+async function getById(id) {
+  shops = await Shops.findById(id);
+  return shops;
+}
+
+async function create(ShopsParam, req, res) {
   try {
-    // connect to the videos database
 
-    // Create GridFS bucket to upload a large file
-    const bucket = new mongodb.GridFSBucket(Video);
+    // create Shops
+    const shops = new Shops(ShopsParam);
 
-    // create upload stream using GridFS bucket
-    const videoUploadStream = bucket.openUploadStream('bigbuck');
+    // save Shops
+    const Shops_ = await shops.save();
 
-    // You can put your file instead of bigbuck.mp4
-    const videoReadStream = fs.createReadStream('./bigbuck.mp4');
-
-    // Finally Upload!
-    videoReadStream.pipe(videoUploadStream);
-
-    // All done!
-    res.status(200).send("Done...");
+    if (Shops_) {
+      res.status(200).send({"message": "ok","data": Shops_.toJSON()});    
+    }   
 
   } catch (error) {
       return res.status(500).json({message: error.message})
   }
+}
+
+async function update(id, ShopsParam, res) {
+    try{
+        const shops = await Shops.findById(id);
+        // validate
+        if (!shops) return res.status(400).json({message : "Shops not found" });
+        
+        // copy ShopsParam properties to Shops
+        Object.assign(shops, ShopsParam);
+        const Shops_ = await Shops.save();
+        if (Shops_) {
+          res.status(200).send({"message": "ok","data": Shops_.toJSON()});    
+        }   
+
+    }catch(error){
+        res.status(500).json({message: error.message})
+    }
+}
+
+async function _delete(id, res) {
+    await Shops.findByIdAndRemove(id);
+    res.status(200);
 }

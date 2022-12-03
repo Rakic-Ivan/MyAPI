@@ -8,6 +8,9 @@ router.get("/current", getCurrent);
 router.get("/:_id", getById);
 router.put("/:_id", update);  
 router.delete("/:_id", _delete);
+router.get("/favlist/:shoeId",getUserfavlistSongsById);
+router.put("/favlist/:shoeId", updateUserfavlistSongs);
+router.delete("/favlist/:shoeId", deleteUserfavlistSongs);
 module.exports = router;
 
 function create(req, res, next) {
@@ -54,3 +57,18 @@ function _delete(req, res, next) {
     .catch((err) => next(err));
 }
 
+function getUserfavlistSongsById(req, res, next) {
+  userService
+    .getUserListIdFavShoesById(req.params.userId, res)
+    .catch((err) => next(err));
+}
+function updateUserfavlistSongs(req, res, next) {
+    userService
+    .updateUserPlaylistSongs(req.params.shoeId, req.body, res)
+    .catch((err) => next(err));
+}
+function deleteUserfavlistSongs(req, res, next) {
+    userService
+    .deleteUserPlaylistSongs(req.params.shoeId, req.body, res)
+    .catch((err) => next(err));
+}
