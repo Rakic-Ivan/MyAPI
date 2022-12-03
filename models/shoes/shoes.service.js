@@ -10,25 +10,26 @@ module.exports = {
 };
 
 async function getAll(res) {
-  const Shoes = await Shoes.find();
+  const shoes = await Shoes.find();
   return res.status(200).json( {
     message: "ok",
-    data: Shoes,
+    data: shoes,
   });
 }
 
 async function getById(id) {
-  Shoes = await Shoes.findById(id);
-  return Shoes;
+  shoes = await Shoes.findById(id);
+  return shoes;
 }
 
 async function create(ShoesParam, req, res) {
   try {
 
     // create Shoes
-    const Shoes = new Shoes(ShoesParam);
+    const shoes = new Shoes(ShoesParam);
+
     // save Shoes
-    const Shoes_ = await Shoes.save();
+    const Shoes_ = await shoes.save();
 
     if (Shoes_) {
       res.status(200).send({"message": "ok","data": Shoes_.toJSON()});    
@@ -41,12 +42,12 @@ async function create(ShoesParam, req, res) {
 
 async function update(id, ShoesParam, res) {
     try{
-        const Shoes = await Shoes.findById(id);
+        const shoes = await Shoes.findById(id);
         // validate
-        if (!Shoes) return res.status(400).json({message : "Shoes not found" });
+        if (!shoes) return res.status(400).json({message : "Shoes not found" });
         
         // copy ShoesParam properties to Shoes
-        Object.assign(Shoes, ShoesParam);
+        Object.assign(shoes, ShoesParam);
         const Shoes_ = await Shoes.save();
         if (Shoes_) {
           res.status(200).send({"message": "ok","data": Shoes_.toJSON()});    
