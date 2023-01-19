@@ -11,6 +11,7 @@ router.delete("/:_id", _delete);
 router.get("/favlist/:shoeId",getUserfavlistSongsById);
 router.put("/favlist/:shoeId", updateUserfavlistSongs);
 router.delete("/favlist/:shoeId", deleteUserfavlistSongs);
+router.post("/auth", authenticate);
 module.exports = router;
 
 function create(req, res, next) {
@@ -18,6 +19,18 @@ function create(req, res, next) {
     .create(req.body,req, res)
     .catch((err) => next(err));
 }
+
+function authenticate(req, res, next) {
+  userService
+    .authenticate(req.body, res)
+    .then((user) =>
+    user
+      ? res.json(user)
+      : res.status(400).json({ message: "Username or password is incorrect" })
+  )
+    .catch((err) => next(err));
+}
+
 function update(req, res, next) {
   userService
     .update(req.params._id, req.body,res)

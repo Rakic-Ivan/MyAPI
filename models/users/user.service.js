@@ -12,8 +12,38 @@ module.exports = {
   delete: _delete,
   getUserListIdFavShoesById,
   updateUserPlaylistSongs,
-  deleteUserPlaylistSongs
+  deleteUserPlaylistSongs,
+  authenticate,
 };
+
+async function authenticate(userAuthentification,res) {
+  try {
+    var user = await User.findOne({ $or: [{ username: userAuthentification.username }, { email: userAuthentification.email }] });
+    if(!user){
+      res.status(404).json({message: "User not find, please verify username/email!"});
+    }
+    const comparePassword = await bcrypt.compare(userAuthentification.password, user.password);
+    if(!comparePassword){
+      res.status(404).json({message: "User not find, please verify password!"});
+    }
+    if (comparePassword) {
+      
+      const token = jwt.sign({ sub: user }, config.secret, {
+        expiresIn: "7d",
+      });
+
+      return {
+        message: "ok",
+        data: token,
+      };
+    
+    } 
+
+  } catch (error) {
+    res.status(500).json({message: error.message});
+  }
+
+}
 
 async function getAll(res) {
   const user = await User.find();
