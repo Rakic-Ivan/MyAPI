@@ -1,5 +1,7 @@
 const db = require("_helpers/db");
 const User = db.User;
+const bcrypt = require("bcryptjs");
+const config = require("config.json");
 
 var mongoose = require('mongoose');
 

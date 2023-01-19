@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const userService = require("./user.service");
+
 // routes
 router.post("/create", create);
 router.get("/", getAll);
