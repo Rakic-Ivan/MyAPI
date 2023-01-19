@@ -2,6 +2,7 @@ const db = require("_helpers/db");
 const User = db.User;
 const bcrypt = require("bcryptjs");
 const config = require("config.json");
+const jwt = require("jsonwebtoken");
 
 var mongoose = require('mongoose');
 
