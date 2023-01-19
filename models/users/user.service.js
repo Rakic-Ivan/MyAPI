@@ -25,6 +25,8 @@ async function authenticate(userAuthentification,res) {
       res.status(404).json({message: "User not find, please verify email!"});
     }
     const comparePassword = await bcrypt.compare(userAuthentification.password, user.password);
+    console.log(comparePassword);
+
     if(!comparePassword){
       res.status(404).json({message: "User not find, please verify password!"});
     }
@@ -70,6 +72,8 @@ async function create(userParam, req, res) {
     if (await User.findOne({ nom: userParam.nom })) {
       return res.status(400).json({message : 'Nom "' + userParam.nom + '" is already taken'});
     }
+
+    userParam.password = bcrypt.hashSync(userParam.password);
 
     // create User
     const user = new User(userParam);
