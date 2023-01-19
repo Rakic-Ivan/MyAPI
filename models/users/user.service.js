@@ -20,9 +20,9 @@ module.exports = {
 
 async function authenticate(userAuthentification,res) {
   try {
-    var user = await User.findOne({ $or: [{ username: userAuthentification.username }, { email: userAuthentification.email }] });
+    var user = await User.findOne({ email: userAuthentification.email });
     if(!user){
-      res.status(404).json({message: "User not find, please verify username/email!"});
+      res.status(404).json({message: "User not find, please verify email!"});
     }
     const comparePassword = await bcrypt.compare(userAuthentification.password, user.password);
     if(!comparePassword){
