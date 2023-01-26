@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const shoesService = require("./shoes.service");
+const filesService = require("./files.service");
 // routes
 router.post("/create", create);
 router.get("/", getAll);
@@ -11,32 +11,32 @@ router.delete("/:_id", _delete);
 module.exports = router;
 
 function create(req, res, next) {
-  shoesService
+  filesService
     .create(req.body,req, res)
     .catch((err) => next(err));
 }
 function update(req, res, next) {
-  shoesService
+  filesService
     .update(req.params._id, req.body,res)
     .catch((err) => next(err));
 }
 
 function getAll(req, res, next) {
-  shoesService
+  filesService
     .getAll(res)
     .then((users) => res.json(users))
     .catch((err) => next(err));
 }
 
 function getCurrent(req, res, next) {
-  shoesService
+  filesService
     .getById(req.user.sub)
     .then((user) => (user ? res.json(user) : res.sendStatus(404)))
     .catch((err) => next(err));
 }
 
 function getById(req, res, next) {
-  shoesService
+  filesService
     .getById(req.params._id, req, res,)
     .then((user) => (user ? res.json({
       message: "ok",
@@ -48,7 +48,7 @@ function getById(req, res, next) {
 }
 
 function _delete(req, res, next) {
-  shoesService
+  filesService
     .delete(req.params._id,res)
     .then(() => res.json({}))
     .catch((err) => next(err));

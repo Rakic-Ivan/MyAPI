@@ -7,7 +7,7 @@ const schema = new Schema({
   username: { type: String, unique: true, required: false },
   email :{ type: String, unique: true, required:true},
   password : {type: String, required: true},
-  listIdFavShoes : [{type: Schema.Types.ObjectId, ref: 'shoes' , default:[]}]
+  listIdFavFiles : [{type: Schema.Types.ObjectId, ref: 'files' , default:[]}]
 });
 
 schema.set("toJSON", {

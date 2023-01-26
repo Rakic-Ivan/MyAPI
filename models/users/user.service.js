@@ -13,7 +13,7 @@ module.exports = {
   create,
   update,
   delete: _delete,
-  getUserListIdFavShoesById,
+  getUserListIdFavFilesById,
   updateUserPlaylistSongs,
   deleteUserPlaylistSongs,
   authenticate,
@@ -113,27 +113,27 @@ async function _delete(id, res) {
 }
 
 
-async function getUserListIdFavShoesById(id,res) {
+async function getUserListIdFavFilesById(id,res) {
   const user = await User.findById(id);
-  if(!user) return res.status(404).json({message: "Error get Fav Shoes"});
-  return res.status(200).json(user.listIdFavShoes);
+  if(!user) return res.status(404).json({message: "Error get Fav Files"});
+  return res.status(200).json(user.listIdFavFiles);
 }
 
 async function updateUserPlaylistSongs(id, param, res) {
   const user = await User.findById(id);
-  if(!user) return res.status(404).json({message: "erreur Fav Shoes list"});
-  if( typeof param.shoeId === 'undefined' || param.shoeId === null || param.shoeId === "" ) return res.status(402).json({message: "Error: Champ id shoe est vide"});
-  user.listIdFavShoes.push(mongoose.Types.ObjectId( param.shoeId ));
+  if(!user) return res.status(404).json({message: "erreur Fav Files list"});
+  if( typeof param.fileId === 'undefined' || param.fileId === null || param.fileId === "" ) return res.status(402).json({message: "Error: Champ id file est vide"});
+  user.listIdFavFiles.push(mongoose.Types.ObjectId( param.fileId ));
   user.save();
-  return res.status(200).json({"message" : "Shoe added!"});
+  return res.status(200).json({"message" : "File added!"});
 }
 
 async function deleteUserPlaylistSongs(id, param, res) {
-  var listIdFavShoesN = param.shoeId.map(s => s.toString());
+  var listIdFavFilesN = param.fileId.map(s => s.toString());
   await User.updateOne( // select your doc in moongo
     { _id: id }, // your query, usually match by _id
-    { $pullAll: { listIdFavShoes: listIdFavShoesN } }, // item(s) to match from array you want to pull/remove
+    { $pullAll: { listIdFavFiles: listIdFavFilesN } }, // item(s) to match from array you want to pull/remove
     { multi: true } // set this to true if you want to remove multiple elements.
   )
-  return res.status(200).json("Shoes " + listIdFavShoesN + " deleted");
+  return res.status(200).json("Files " + listIdFavFilesN + " deleted");
 }

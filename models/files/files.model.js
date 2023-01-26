@@ -4,10 +4,8 @@ const Schema = mongoose.Schema;
 
 const commentSchema = new Schema({
   name: { type: String, required: true },
-  description: { type: String, required: true },
-  size: { type: String, required: true },
-  price: { type: Number, required: true },
-  shopId: { type: Schema.Types.ObjectId, ref: 'shops', required: true },
+  path: { type: String, required: true },
+  // shopId: { type: Schema.Types.ObjectId, ref: 'shops'/*, required: true*/ },
 });
 
 commentSchema.set("toJSON", {
@@ -18,4 +16,4 @@ commentSchema.set("toJSON", {
   },
 });
 
-module.exports = mongoose.model("Shoes", commentSchema);
+module.exports = mongoose.model("Files", commentSchema);

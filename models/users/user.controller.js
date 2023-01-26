@@ -9,9 +9,9 @@ router.get("/current", getCurrent);
 router.get("/:_id", getById);
 router.put("/:_id", update);  
 router.delete("/:_id", _delete);
-router.get("/favlist/:shoeId",getUserfavlistSongsById);
-router.put("/favlist/:shoeId", updateUserfavlistSongs);
-router.delete("/favlist/:shoeId", deleteUserfavlistSongs);
+router.get("/favlist/:fileId",getUserfavlistSongsById);
+router.put("/favlist/:fileId", updateUserfavlistSongs);
+router.delete("/favlist/:fileId", deleteUserfavlistSongs);
 router.post("/auth", authenticate);
 module.exports = router;
 
@@ -73,16 +73,16 @@ function _delete(req, res, next) {
 
 function getUserfavlistSongsById(req, res, next) {
   userService
-    .getUserListIdFavShoesById(req.params.userId, res)
+    .getUserListIdFavFilesById(req.params.userId, res)
     .catch((err) => next(err));
 }
 function updateUserfavlistSongs(req, res, next) {
     userService
-    .updateUserPlaylistSongs(req.params.shoeId, req.body, res)
+    .updateUserPlaylistSongs(req.params.fileId, req.body, res)
     .catch((err) => next(err));
 }
 function deleteUserfavlistSongs(req, res, next) {
     userService
-    .deleteUserPlaylistSongs(req.params.shoeId, req.body, res)
+    .deleteUserPlaylistSongs(req.params.fileId, req.body, res)
     .catch((err) => next(err));
 }
